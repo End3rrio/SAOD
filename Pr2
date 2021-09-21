@@ -1,0 +1,32 @@
+
+#include <iostream>
+#include<string>
+#include<fstream>
+
+using namespace std;
+
+
+
+
+void readTextFile(ifstream& itf)
+{
+    int x;
+    while (!itf.eof())
+    {
+        itf >> x;
+        cout << x << ' ';
+    }
+    cout << '\n';
+    itf.close();
+}
+
+int main()
+{
+    ifstream tf;
+    tf.open("Text.txt");
+    if (!tf)cout << " file Not found";
+    else
+    {
+        readTextFile(tf);
+    }
+}
