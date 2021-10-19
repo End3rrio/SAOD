@@ -1,0 +1,75 @@
+#include <iostream>
+
+using namespace std;
+
+typedef int typdataNode;
+struct TnodeBinTree
+{
+	typdataNode data;
+	TnodeBinTree* leftTree = nullptr, * rightTree = nullptr;
+};
+
+TnodeBinTree* createNode(typdataNode d)
+{
+	TnodeBinTree* node = new TnodeBinTree;
+	node->data = d;
+	return node;
+}
+
+TnodeBinTree* createBinTreeForThreeNodes(typdataNode droot, typdataNode dleft, typdataNode dright)
+{
+	TnodeBinTree* rootTree;
+	rootTree = createNode(droot);
+	rootTree->leftTree = createNode(dleft);
+	rootTree->rightTree = createNode(dright);
+	return rootTree;
+}
+
+void preorder(TnodeBinTree* root)
+{
+	if (root != nullptr)
+	{
+		cout << root->data << ' ';
+		preorder(root->leftTree);
+		preorder(root->rightTree);
+	}
+}
+
+void createISD(TnodeBinTree*& T, int n)
+{
+	int nl, nr;
+	if (n != 0)
+	{
+		T = new TnodeBinTree;
+		cin >> T->data;
+		nl = n / 2;
+		nr = n - nl - 1;
+		createISD(T->leftTree, nl);
+		createISD(T->rightTree, nr);
+	}
+}
+
+void printBinTree(TnodeBinTree* T, int level, int L)
+{
+	if (T)
+	{
+		printBinTree(T->rightTree, level + 1, L);
+		for (int i = 1; i <= level * L; i++)
+		{
+			cout << ' ';
+		}
+		cout << T->data << "\n";
+		printBinTree(T->leftTree, level + 1, L);
+	}
+}
+
+int main()
+{
+	TnodeBinTree* Root = NULL;
+	int n = 7;
+	cout << "Vvelbnt " << n << " chisel\n";
+	createISD(Root, n);
+	printBinTree(Root, 0, 5);
+	
+	return 0;
+}
